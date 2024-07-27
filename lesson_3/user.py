@@ -8,7 +8,5 @@ class User:
        print(self.last_name)
     def print_full_name(self):
        print(f"{self.first_name} {self.last_name}")
-user = User("Max", "Fry")
-user.print_first_name()  
-user.print_last_name()   
-user.print_full_name()
+
+
