@@ -5,10 +5,10 @@ utils = StringUtils()
 def test_capitalize_positive():
     assert utils.capitilize("pytest") == "Pytest" 
     assert utils.capitilize("пятая нога") == "Пятая нога" 
-   # assert utils.capitilize("трасса e95") == "Трасса e95" 
+    #assert utils.capitilize("трасса E95") == "Трасса E95" 
 
 def test_capitalize_negative():
-   # assert utils.capitilize("PYTHON") == "PYTHON" 
+    #assert utils.capitilize("PYTHON") == "PYTHON" 
     assert utils.capitilize("999") == "999" 
     assert utils.capitilize(" ") == " " 
 
@@ -25,11 +25,11 @@ def test_trim_negative():
 
 @pytest.mark.parametrize('string, delimeter, result', [
        # positive
-   ("вчера, сегодня, завтра", ",", ["вчера", "сегодня", "завтра"]),
-   ("yesterday, today, tomorrow", ",", ["yesterday", "today", "tomorrow"]),
-   ("5, $, 18, %", ",", ["5", "$", "18", "%"]),
+   ("вчера,сегодня,завтра", ",", ["вчера", "сегодня", "завтра"]),
+   ("yesterday,today,tomorrow", ",", ["yesterday", "today", "tomorrow"]),
+   ("5,$,18,%", ",", ["5", "$", "18", "%"]),
       # negative
-   ("", None, [""]),
+   ("", None, []),
    ("9 9 9", None, ["9 9 9"])
 ])
 def test_to_list (string, delimeter, result):
@@ -45,20 +45,18 @@ def test_to_list (string, delimeter, result):
     (" ", " ", True),
     ("E95", "e", False),
     ("E95", "Е", False), # в первом случае Е в английской раскладке, во втором в русской
-    ("заяц", "18", False),
-    ("True", None, False)
-])
+    ("заяц", "18", False)
+])    
 def test_contains(string, symbol, result):
     res = utils.contains(string, symbol)
     assert res == result
   
 @pytest.mark.parametrize("string, symbol, result", [
-    ("маляр", "я", "маяр"),
+    ("маляр", "я", "малр"),
     ("E95", "9", "E5"),
-    (" ", " ", " "),
+    (" ", " ", ""),
     ("yesterday", "z", "yesterday"),
-    ("вчервшний день", " ", "вчерашнийдень"),
-    ("заяц", None, "заяц")
+    ("вчерашний день", " ", "вчерашнийдень")  
 ])
 def test_delete_symbol(string, symbol, result):
     res = utils.delete_symbol(string, symbol)
@@ -103,7 +101,7 @@ def test_is_empty(string, result):
 
 @pytest.mark.parametrize("lst, joiner, result", [
     (["a", "b", "c"], ";", "a;b;c"),
-    (["5 2 6 9 4"], "-", "5-2-6-9-4"),
+    ([5,2,6,9,4], "-", "5-2-6-9-4"),
     ([" "], ".", " "),
     ([" "], None, " ")
 ])

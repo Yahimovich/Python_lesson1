@@ -1,0 +1,7 @@
+1. Опечатка в названии функции: capitilize вместо capitalize
+
+2. В функции capitalize прописаны данные для проверки assert utils.capitilize("трасса E95") == "Трасса E95".
+    (строка 8). При прогоне теста получаем ошибку AssertionError: assert 'Трасса e95' == 'Трасса E95'.
+
+3. В функции capitalize прописаны данные для проверки assert utils.capitilize("PYTHON") == "PYTHON".
+    (строка 11). При прогоне теста получаем ошибку AssertionError: assert 'Python' == 'PYTHON'.
