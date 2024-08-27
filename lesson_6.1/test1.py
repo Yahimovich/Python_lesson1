@@ -22,10 +22,10 @@ def test_form_submission(driver):
     address = driver.find_element(By.NAME, "address")
     address.send_keys("Ленина, 55-3")
 
-    email = driver.find_element(By.NAME, "email")
+    email = driver.find_element(By.NAME, "e-mail")
     email.send_keys("test@skypro.com")
 
-    phone_number = driver.find_element(By.NAME, "phone-number")
+    phone_number = driver.find_element(By.NAME, "phone")
     phone_number.send_keys("+7985899998787")
 
     zip_code = driver.find_element(By.NAME, "zip-code")
@@ -43,17 +43,20 @@ def test_form_submission(driver):
     company = driver.find_element(By.NAME, "company")
     company.send_keys("SkyPro")
 
-    submit_button = driver.find_element(By.NAME, "submit")
-    submit_button.click()
+    submit_button = driver.find_element(By.TAG_NAME, "submit")
     
     wait = WebDriverWait(driver, 40, 0.1)
+
+    submit_button = wait.until(EC.element_to_be_clickable(
+        (By.TAG_NAME, "button")))
+    submit_button.click()
 
     zip_code_field = wait.until(EC.presence_of_element_located(
         (By.ID, "zip-code")))
     
     assert "danger" in zip_code_field.get_attribute("class")
     
-    fields = ["first-name", "last-name", "address", "email", "phone-number", "city", "country", "job-position", "company"]
+    fields = ["first-name", "last-name", "address", "e-mail", "phone", "city", "country", "job-position", "company"]
     for field in fields:
         field_element = driver.find_element(By.ID, field)
         

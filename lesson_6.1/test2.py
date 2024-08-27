@@ -11,11 +11,13 @@ def driver():
     driver.quit()
 
 def test_slow_calculator(driver):
-    driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
+    driver.get(
+        "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
     
     delay_input = driver.find_element(By.CSS_SELECTOR, "#delay")
+    delay_input.clear()
     delay_input.send_keys("45")
-    
+
     button_7 = driver.find_element(By.XPATH, "//span[text() = '7']")
     button_7.click()
 
@@ -27,8 +29,12 @@ def test_slow_calculator(driver):
 
     button_equals = driver.find_element(By.XPATH, "//span[text() = '=']")
     button_equals.click()
-    
+
     wait = WebDriverWait(driver, 50)
+
+    result_display = wait.until(EC.text_to_be_present_in_element(
+        (By.CSS_SELECTOR, "div.screen"), "15"))
     
-    result_display = wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "#screen"), "15"))
-    assert result_display
+    result_text = driver.find_element(By.CSS_SELECTOR, "div.screen").text
+    
+    assert result_text == "15"
